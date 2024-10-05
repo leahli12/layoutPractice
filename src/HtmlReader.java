@@ -127,6 +127,9 @@ public class HtmlReader implements ActionListener {
     private class ButtonClickListener implements ActionListener {
         // Because it inherits ActionLister, it must have actionPerformed defined
         public void actionPerformed(ActionEvent e) {
+            statusLabel.setText("");
+            validLinks.clear();
+
             String command = e.getActionCommand();
             String ta1Input = ta1.getText();
             html.newURL(ta1Input);

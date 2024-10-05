@@ -16,40 +16,39 @@ public class HtmlRead {
 
     public HtmlRead() {
 
-        try {
-            System.out.println();
-            System.out.print("hello \n");
-            URL url = new URL("https://www.milton.edu/");
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(url.openStream())
-            );
-            String line;
-            while ((line = reader.readLine()) != null) {
-                while(line.contains("href")) {
-                    int index = line.indexOf("href") + 6;
-                    line = line.substring(index);
-//                    System.out.println(line);
-//                    keywordChecker(line, "edu");
-                    links.add(scanSegment(line));
-                }
-            }
-//            System.out.println(links);
-            reader.close();
-        } catch(Exception ex) {
-            System.out.println(ex);
-        }
+//        try {
+//            System.out.println();
+//            System.out.print("hello \n");
+//            URL url = new URL("https://www.milton.edu/");
+//            BufferedReader reader = new BufferedReader(
+//                    new InputStreamReader(url.openStream())
+//            );
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                while(line.contains("href")) {
+//                    int index = line.indexOf("href") + 6;
+//                    line = line.substring(index);
+////                    System.out.println(line);
+////                    keywordChecker(line, "edu");
+//                    links.add(scanSegment(line));
+//                }
+//            }
+////            System.out.println(links);
+//            reader.close();
+//        } catch(Exception ex) {
+//            System.out.println(ex);
+//        }
 
     }
 
     public void newURL(String newURL){
         try {
-            System.out.println();
-            System.out.print("hello \n");
             URL url = new URL(newURL);
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(url.openStream())
             );
             String line;
+            links.clear();
             while ((line = reader.readLine()) != null) {
                 while(line.contains("href")) {
                     int index = line.indexOf("href") + 6;
@@ -62,7 +61,7 @@ public class HtmlRead {
 //            System.out.println(links);
             reader.close();
         } catch(Exception ex) {
-            System.out.println(ex);
+            System.out.println("Invalid Link!");
         }
     }
 
