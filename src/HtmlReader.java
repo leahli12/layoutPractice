@@ -9,6 +9,7 @@ public class HtmlReader implements ActionListener {
     private JFrame mainFrame;
     private JTextArea statusLabel;
     private JPanel controlPanel;
+    private JPanel controlPanel1;
     private JMenuBar mb;
     private JMenu file, edit, help;
     private JMenuItem cut, copy, paste, selectAll;
@@ -36,6 +37,8 @@ public class HtmlReader implements ActionListener {
         mainFrame = new JFrame("Leah learning Swing");
         mainFrame.setSize(WIDTH, HEIGHT); // Use this to change size
         mainFrame.setLayout(new GridLayout(5, 1));
+        controlPanel1 = new JPanel();
+        controlPanel1.setLayout(new BoxLayout(controlPanel1, BoxLayout.Y_AXIS));
 
         //menu at top
         cut = new JMenuItem("cut");
@@ -61,16 +64,22 @@ public class HtmlReader implements ActionListener {
         //end menu at top
 
         ta = new JTextArea("Keyword goes here");
+        ta.setMinimumSize(new Dimension(10, 50));
+        ta.setPreferredSize(new Dimension(10, 50));
+        ta.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+        ta.setFont(new Font("Helvetica", Font.ITALIC, 14));
+
         taInput = ta.getText();
         ta1 = new JTextArea("URL goes here");
-        ta.setBounds(50, 5, -20, -20);
+//        ta.setBounds(50, 5, -20, -20);
 //        mainFrame.add(mb);  //add menu bar
-        mainFrame.add(ta);//add typing area
-        ta1.setBounds(50, 5, -20, -20);
+        ta.setAlignmentX(Component.CENTER_ALIGNMENT);
+        controlPanel1.add(ta);//add typing area
+//        ta1.setBounds(50, 5, -20, -20);
 //        mainFrame.setJMenuBar(mb); //set menu bar
-        mainFrame.add(ta);
-        mainFrame.add(ta1);
-
+        controlPanel1.add(Box.createRigidArea(new Dimension(100, 10)));
+        controlPanel1.add(ta1);
+        mainFrame.add(controlPanel1);
         statusLabel = new JTextArea("Links go here");
         scroll = new JScrollPane(statusLabel);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -82,32 +91,22 @@ public class HtmlReader implements ActionListener {
             }
         });
         controlPanel = new JPanel();
-        controlPanel.setLayout(new BorderLayout()); //set the layout of the panel
-
-        mainFrame.add(controlPanel);
-//        mainFrame.add(statusLabel);
-        mainFrame.add(scroll);
-        mainFrame.setVisible(true);
     }
 
     private void showEventDemo() {
 
-        JButton okButton = new JButton("OK");
-        JButton submitButton = new JButton("Submit");
-        JButton cancelButton = new JButton("Cancel");
+        JButton okButton = new JButton("Search!");
+//        JButton submitButton = new JButton("Submit");
+//        JButton cancelButton = new JButton("Cancel");
 
         okButton.setActionCommand("OK"); // Sets the message that will be broadcasted to Java when it is clicked
-        submitButton.setActionCommand("Submit");
-        cancelButton.setActionCommand("Cancel");
+//        submitButton.setActionCommand("Submit");
+//        cancelButton.setActionCommand("Cancel");
 
         okButton.addActionListener(new ButtonClickListener());
-        submitButton.addActionListener(new ButtonClickListener());
-        cancelButton.addActionListener(new ButtonClickListener());
-
-        controlPanel.add(okButton, BorderLayout.EAST);
-        controlPanel.add(submitButton, BorderLayout.WEST);
-        controlPanel.add(cancelButton, BorderLayout.CENTER); // if using BorderLayout, these three buttons would stack on each other
-
+        controlPanel1.add(okButton, BorderLayout.CENTER);
+//        mainFrame.add(statusLabel);
+        mainFrame.add(scroll);
         mainFrame.setVisible(true);
     }
 
@@ -136,23 +135,27 @@ public class HtmlReader implements ActionListener {
 
             if (command.equals("OK")) { // Checking what is being broadcasted
                 taInput = ta.getText();
+                if (!taInput.equals("Keyword goes here")){
+                    ta.setFont(new Font("Helvetica", Font.PLAIN, 14));
+                }
 
-                for(int i = 0; i < links.size(); i++){
+                for (int i = 0; i < links.size(); i++) {
                     String temp = html.keywordChecker(taInput, i);
-                    if (!(temp.equals("none"))){
+                    if (!(temp.equals("none"))) {
                         validLinks.add(links.get(i));
                     }
                 }
                 String validLinksString = stringConverter(validLinks);
                 statusLabel.setText(validLinksString);
-                if (validLinksString.equals("")){
+                if (validLinksString.equals("")) {
                     statusLabel.setText("None found!");
                 }
 
-            } else if (command.equals("Submit")) {
-                statusLabel.setText("Submit Button clicked.");
-            } else {
-                statusLabel.setText("Cancel Button clicked.");
+//            } else if (command.equals("Submit")) {
+//                statusLabel.setText("Submit Button clicked.");
+//            } else {
+//                statusLabel.setText("Cancel Button clicked.");
+//            }
             }
         }
     }
