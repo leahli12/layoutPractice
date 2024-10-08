@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import java.io.InputStream;
 
 public class HtmlReader implements ActionListener {
     // ActionListener Interface???
@@ -28,6 +29,10 @@ public class HtmlReader implements ActionListener {
     }
 
     public static void main(String[] args) {
+//        InputStream is = HtmlReader.class.getResourceAsStream("");
+//        Font font = Font.createFont(Font.TRUETYPE_FONT, is);
+//        Font sizedFont = font.deriveFont(12f);
+//        myLabel.setFont(sizedFont);
         HtmlReader htmlReader = new HtmlReader();
         htmlReader.showEventDemo();
     }
@@ -67,7 +72,7 @@ public class HtmlReader implements ActionListener {
         ta.setMinimumSize(new Dimension(10, 50));
         ta.setPreferredSize(new Dimension(10, 50));
         ta.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-        ta.setFont(new Font("Helvetica", Font.ITALIC, 14));
+        ta.setFont(new Font("Webdings", Font.PLAIN, 14));
 
         taInput = ta.getText();
         ta1 = new JTextArea("URL goes here");
@@ -136,7 +141,7 @@ public class HtmlReader implements ActionListener {
             if (command.equals("OK")) { // Checking what is being broadcasted
                 taInput = ta.getText();
                 if (!taInput.equals("Keyword goes here")){
-                    ta.setFont(new Font("Helvetica", Font.PLAIN, 14));
+//                    ta.setFont(new Font("Shallot", Font.PLAIN, 14));
                 }
 
                 for (int i = 0; i < links.size(); i++) {
