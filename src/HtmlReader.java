@@ -9,6 +9,7 @@ public class HtmlReader implements ActionListener {
     public HtmlRead html = new HtmlRead();
     private JFrame mainFrame;
     private JTextArea statusLabel;
+    private JLabel google;
     private JPanel controlPanel;
     private JPanel controlPanel1;
     private JMenuBar mb;
@@ -39,11 +40,14 @@ public class HtmlReader implements ActionListener {
 
     private void prepareGUI() {
         // Sets up our "canvas"
-        mainFrame = new JFrame("Leah learning Swing");
+        mainFrame = new JFrame("Google");
         mainFrame.setSize(WIDTH, HEIGHT); // Use this to change size
         mainFrame.setLayout(new GridLayout(5, 1));
+        controlPanel = new JPanel();
+        controlPanel.setLayout(new GridLayout(1, 2));
+        controlPanel.setSize(100, 50);
         controlPanel1 = new JPanel();
-        controlPanel1.setLayout(new BoxLayout(controlPanel1, BoxLayout.Y_AXIS));
+        controlPanel1.setLayout(new GridLayout(5, 1));
 
         //menu at top
         cut = new JMenuItem("cut");
@@ -68,14 +72,18 @@ public class HtmlReader implements ActionListener {
 //        mb.add(help);
         //end menu at top
 
+        google = new JLabel("Google");
+        google.setFont(new Font("Futura", Font.BOLD, 50));
+        google.setForeground(Color.getHSBColor(140, 200, 55));
+        // TODO: Make this blueeee
+
         ta = new JTextArea("Keyword goes here");
-        ta.setMinimumSize(new Dimension(10, 50));
-        ta.setPreferredSize(new Dimension(10, 50));
-        ta.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-        ta.setFont(new Font("Webdings", Font.PLAIN, 14));
+        ta.setLineWrap(true);
+        ta.setFont(new Font("Times", Font.PLAIN, 14));
 
         taInput = ta.getText();
         ta1 = new JTextArea("URL goes here");
+        ta1.setLineWrap(true);
 //        ta.setBounds(50, 5, -20, -20);
 //        mainFrame.add(mb);  //add menu bar
         ta.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -84,7 +92,9 @@ public class HtmlReader implements ActionListener {
 //        mainFrame.setJMenuBar(mb); //set menu bar
         controlPanel1.add(Box.createRigidArea(new Dimension(100, 10)));
         controlPanel1.add(ta1);
+        mainFrame.add(google);
         mainFrame.add(controlPanel1);
+        controlPanel1.add(controlPanel);
         statusLabel = new JTextArea("Links go here");
         scroll = new JScrollPane(statusLabel);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -95,21 +105,22 @@ public class HtmlReader implements ActionListener {
                 System.exit(0);
             }
         });
-        controlPanel = new JPanel();
     }
 
     private void showEventDemo() {
 
         JButton okButton = new JButton("Search!");
-//        JButton submitButton = new JButton("Submit");
+        JButton submitButton = new JButton("I'm Feeling Lucky");
 //        JButton cancelButton = new JButton("Cancel");
 
         okButton.setActionCommand("OK"); // Sets the message that will be broadcasted to Java when it is clicked
-//        submitButton.setActionCommand("Submit");
+        submitButton.setActionCommand("Submit");
 //        cancelButton.setActionCommand("Cancel");
 
         okButton.addActionListener(new ButtonClickListener());
-        controlPanel1.add(okButton, BorderLayout.CENTER);
+        submitButton.addActionListener(new ButtonClickListener());
+        controlPanel.add(okButton);
+        controlPanel.add(submitButton);
 //        mainFrame.add(statusLabel);
         mainFrame.add(scroll);
         mainFrame.setVisible(true);
@@ -131,7 +142,7 @@ public class HtmlReader implements ActionListener {
     private class ButtonClickListener implements ActionListener {
         // Because it inherits ActionLister, it must have actionPerformed defined
         public void actionPerformed(ActionEvent e) {
-            statusLabel.setText("");
+//            statusLabel.setText("");
             validLinks.clear();
 
             String command = e.getActionCommand();
@@ -155,9 +166,8 @@ public class HtmlReader implements ActionListener {
                 if (validLinksString.equals("")) {
                     statusLabel.setText("None found!");
                 }
-
-//            } else if (command.equals("Submit")) {
-//                statusLabel.setText("Submit Button clicked.");
+            } else if (command.equals("Submit")) {
+                feelingLucky();
 //            } else {
 //                statusLabel.setText("Cancel Button clicked.");
 //            }
@@ -176,5 +186,21 @@ public class HtmlReader implements ActionListener {
             }
         }
         return workingString;
+    }
+
+    public void feelingLucky(){
+        int randNum = (int)(Math.random() * 11);
+        String newFont = "Copperplate"; // This font shouldn't ever show up; if it does, something is wrong
+        ArrayList<String> fonts = new ArrayList<>();
+        fonts.add("American Typewriter"); fonts.add("AppleGothic"); fonts.add("Webdings"); fonts.add("Herculanum"); fonts.add("Kokonor"); fonts.add("SignPainter"); fonts.add("Bodoni 72 Smallcaps"); fonts.add("Comic Sans MS"); fonts.add("Lucida Bright"); fonts.add("Papyrus");
+        for (int i = 0; i < 10; i++){
+            if(i + 1 > randNum){
+                newFont = fonts.get(i);
+                break;
+            }
+        }
+        ta.setFont(new Font(newFont, Font.PLAIN, 15));
+        ta1.setFont(new Font(newFont, Font.PLAIN, 15));
+        statusLabel.setFont(new Font(newFont, Font.PLAIN, 15));
     }
 }
