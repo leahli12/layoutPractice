@@ -72,10 +72,9 @@ public class HtmlReader implements ActionListener {
 //        mb.add(help);
         //end menu at top
 
-        google = new JLabel("Google");
+        google = new JLabel("Google", JLabel.CENTER);
         google.setFont(new Font("Futura", Font.BOLD, 50));
-        google.setForeground(Color.getHSBColor(140, 200, 55));
-        // TODO: Make this blueeee
+        google.setForeground(Color.getHSBColor(0.604f, 0.73f, 0.96f));
 
         ta = new JTextArea("Keyword goes here");
         ta.setLineWrap(true);
@@ -190,6 +189,12 @@ public class HtmlReader implements ActionListener {
 
     public void feelingLucky(){
         int randNum = (int)(Math.random() * 11);
+        for (int i = 0; i < 3; i ++) {
+            float randNum1 = (float)(Math.random());
+            float randNum2 = (float)(Math.random());
+            float randNum3 = (float)(Math.random());
+            google.setForeground(Color.getHSBColor(randNum1, randNum2, randNum3));
+        }
         String newFont = "Copperplate"; // This font shouldn't ever show up; if it does, something is wrong
         ArrayList<String> fonts = new ArrayList<>();
         fonts.add("American Typewriter"); fonts.add("AppleGothic"); fonts.add("Webdings"); fonts.add("Herculanum"); fonts.add("Kokonor"); fonts.add("SignPainter"); fonts.add("Bodoni 72 Smallcaps"); fonts.add("Comic Sans MS"); fonts.add("Lucida Bright"); fonts.add("Papyrus");
